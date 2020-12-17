@@ -1,4 +1,4 @@
-from .models import User, Login
+from .models import User, Login, user_all, localtime
 from flask import Flask, request, session, redirect, url_for, render_template, flash
 import re
 # regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
@@ -12,7 +12,14 @@ def showIndex():
 
 @app.route('/dashboard')
 def dashboard():
-    return render_template('dashboard.html')
+    local = localtime()
+    return render_template('dashboard.html', local=local)
+
+@app.route('/user')
+def user():
+    user = user_all()
+    local = localtime()
+    return render_template('user.html', user=user, local=local)
 
 @app.route('/admin', methods=['GET', 'POST'])
 def login():

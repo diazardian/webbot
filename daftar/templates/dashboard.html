@@ -12,7 +12,8 @@ Informatics Bot
                 <div class="signup-content">
                     <div class="signup-form">
                         {% if session.username %}
-                        Logged in as <h2>{{ session.username }}</h2>
+                        Logged in as <a href="{{ url_for('dashboard') }}"><h2>{{ session.username }}</h2></a>
+                        <h1>{{ local }}</h1>
                         {% else %}
                         <h2>Tidak Ada Sesi</h2>
                         <meta http-equiv="refresh" content="0; {{ url_for('login') }}" />
@@ -29,7 +30,7 @@ Informatics Bot
                         {% else %}
                         <a href="{{ url_for('logout') }}"
                         class="zmdi zmdi-power back"></a>
-                        {% endif %}
+                        
                         </h2>
                         <!-- <a href="{{ url_for('showIndex') }}">Home</a> -->
 
@@ -37,43 +38,22 @@ Informatics Bot
                 </div>
             </div>
             <br>
-            <div class="container_admin">
-                <div class="signup-content">
-                    <div class="admin_table">
-                        <div class="card-header">
-                            <h3>
-                                User Control
-                            </h3>
-                            <i class="fas fa-ellipsis-h"></i>
+            <div class="container">
+                <div class="cards-list">
+                    <a class="card 1" href="{{ url_for('user') }}">
+                        <div>
+                            <h1 class="card_title">User Telegram</h1>
                         </div>
-                        <div class="card-content">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Nama Lengkap</th>
-                                        <th>Email</th>
-                                        <th>Username</th>
-                                        <th>Telegram ID</th>
-                                        <th>Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Diaz Ardian</td>
-                                        <td>admin@admin.com</td>
-                                        <td>diazardian</td>
-                                        <td>ddrdn</td>
-                                        <td>Unverified</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                    </a>
+                    <a class="card 2" href="">
+                        <div>
+                        <h1 class="card_title">Log Query</h1>
                         </div>
-                    </div>
+                    </a>
                 </div>
             </div>
             {{ self.footer() }}
         </section> 
     </div>
+    {% endif %}
 {% endblock %}

@@ -1,0 +1,81 @@
+{% extends "layout_admin.html" %}
+{% block title %}
+Informatics Bot
+{% endblock %}
+{% block body %}
+<div class="main">
+    <section class="signup">
+        <div class="container">
+            <div class="signup-content">
+                <div class="signup-form">
+                    {% if session.username %}
+                    Logged in as <a href="{{ url_for('dashboard') }}"><h2>{{ session.username }}</h2></a>
+                    <h1>{{ local }}</h1>
+                    {% else %}
+                    <h2>Tidak Ada Sesi</h2>
+                    <meta http-equiv="refresh" content="0; {{ url_for('login') }}" />
+                    <script>alert("Anda belum login!");</script>
+                    
+                    {% endif %}
+                </div>
+                <div>
+                    <h2><a href="{{ url_for('showIndex') }}"
+                    class="zmdi zmdi-home back"></a>
+                    {% if not session.username %}
+                    <!-- <a href="{{ url_for('register') }}" class="zmdi zmdi-account-add back"></a> -->
+                    <a href="{{ url_for('login') }}" class="zmdi zmdi-account back"></a>
+                    {% else %}
+                    <a href="{{ url_for('logout') }}"
+                    class="zmdi zmdi-power back"></a>
+                    {% endif %}
+                    </h2>
+                    <!-- <a href="{{ url_for('showIndex') }}">Home</a> -->
+
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="container_admin">
+            <div class="signup-content">
+                <div class="admin_table">
+                    <div class="card-header">
+                        <h3>
+                            User Telegram
+                        </h3>
+                        <i class="fas fa-ellipsis-h"></i>
+                    </div>
+                    <div class="card-content">
+                        <table class="tabbedTable">
+                            <thead>
+                                <tr>
+                                    <th>Telegram Id</th>
+                                    <th>Nama Lengkap</th>
+                                    <th>Prodi</th>
+                                    <th>Angkatan</th>
+                                    <th>Email</th>
+                                    <th>Role</th>
+                                    <th>PJ Kelas</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for data in user %}
+                                <tr>
+                                    <td>{{ data.id }}</td>
+                                    <td>{{ data.nama }}</td>
+                                    <td>{{ data.prodi }}</td>
+                                    <td>{{ data.angkatan }}</td>
+                                    <td>{{ data.email }}</td>
+                                    <td>{{ data.role }}</td>
+                                    <td>{{ data.pj }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{ self.footer() }}
+    </section> 
+</div>
+{% endblock %}
