@@ -1,0 +1,12 @@
+bcrypt
+cffi
+click
+Flask
+itsdangerous
+Jinja2
+MarkupSafe
+passlib
+py2neo
+pycparser
+six
+Werkzeug
