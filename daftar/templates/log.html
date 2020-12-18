@@ -9,7 +9,7 @@ Informatics Bot
             <div class="signup-content">
                 <div class="signup-form">
                     {% if session.username %}
-                    Logged in as <h2><a class="zmdi zmdi-arrow-left back" href="{{ url_for('dashboard') }}"></a>{{ session.username }}</h2>
+                    Logged in as <h2><a class="zmdi zmdi-arrow-left back" href="{{ url_for('dashboard') }}" ></a>{{ session.username }}</h2>
                     <h1>{{ local }}</h1>
                     {% else %}
                     <h2>Tidak Ada Sesi</h2>
@@ -40,7 +40,7 @@ Informatics Bot
                 <div class="admin_table">
                     <div class="card-header">
                         <h3>
-                            User Telegram
+                            Log Query
                         </h3>
                         <i class="fas fa-ellipsis-h"></i>
                     </div>
@@ -49,24 +49,18 @@ Informatics Bot
                             <thead>
                                 <tr>
                                     <th>Telegram Id</th>
-                                    <th>Nama Lengkap</th>
-                                    <th>Prodi</th>
-                                    <th>Angkatan</th>
-                                    <th>Email</th>
-                                    <th>Role</th>
-                                    <th>PJ Kelas</th>
+                                    <th>Nama</th>
+                                    <th>Query</th>
+                                    <th>Timestamp</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {% for data in user %}
+                                {% for data in log %}
                                 <tr>
                                     <td>{{ data.id }}</td>
                                     <td>{{ data.nama }}</td>
-                                    <td>{{ data.prodi }}</td>
-                                    <td>{{ data.angkatan }}</td>
-                                    <td>{{ data.email }}</td>
-                                    <td>{{ data.role }}</td>
-                                    <td>{{ data.pj }}</td>
+                                    <td>{{ data.query }}</td>
+                                    <td>{{ data.jam }}</td>
                                 </tr>
                                 {% endfor %}
                             </tbody>

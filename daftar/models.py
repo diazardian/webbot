@@ -65,6 +65,13 @@ def user_all():
     """
     return graph.run(query)
 
+def log():
+    query = """
+    MATCH (user:UserTele)-[:LOGIING]-(log:Log)
+    RETURN user.userid as id, user.namalengkap as nama, log.query as query, log.timestamp as jam
+    """
+    return graph.run(query)
+
 def localtime():
     today_ori = tgl.today()
     hariini = today_ori.strftime('%A')

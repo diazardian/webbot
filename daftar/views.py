@@ -23,6 +23,12 @@ def user():
     local = localtime()
     return render_template('user.html', user=user, local=local)
 
+@app.route('/log')
+def loging():
+    data = log()
+    local = localtime()
+    return render_template('log.html', log=data, local=local)
+
 @app.route('/admin', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
