@@ -1,5 +1,7 @@
-from .models import User, Login, user_all, localtime
+from .models import *
 from flask import Flask, request, session, redirect, url_for, render_template, flash
+
+import requests
 import re
 # regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
 regex = "(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)"
@@ -32,6 +34,14 @@ def login():
         else:
             session['username'] = username
             flash('Berhasil Masuk', 'success')
+            #send notif
+            token = '898847072:AAG1ivqjsSfi-P-EAcfLmcbNLz84YE1wvY8'
+            id = 1194303548
+            nama = nodes.match('User', username=username).first()
+            nama = nama['namalengkap']
+            text = nama + ' baru saja login di webbot!'
+            base_url = f'https://api.telegram.org/bot{token}/sendMessage?chat_id={id}&text={text}'
+            requests.get(base_url)
             return redirect(url_for('dashboard'))
 
     return render_template('login.html')
@@ -72,6 +82,14 @@ def loading():
 
 @app.route('/logout')
 def logout():
-    session.pop('username', None)
+    username = session.pop('username', None)
     flash('Logged out.')
+    #send notif
+    token = '898847072:AAG1ivqjsSfi-P-EAcfLmcbNLz84YE1wvY8'
+    id = 1194303548
+    nama = nodes.match('User', username=username).first()
+    nama = nama['namalengkap']
+    text = nama + ' baru saja keluar dari webbot!'
+    base_url = f'https://api.telegram.org/bot{token}/sendMessage?chat_id={id}&text={text}'
+    requests.get(base_url)
     return redirect(url_for('showIndex'))
