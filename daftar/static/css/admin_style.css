@@ -22,10 +22,23 @@ h1 {
     -o-border-radius: 20px;
     -ms-border-radius: 20px; }
 
+.container_admin_wx {
+    width: 1200px;
+    background: rgb(255, 255, 255);
+    margin: 0 auto;
+    box-shadow: 0px 15px 16.83px 0.17px rgba(0, 0, 0, 0.05);
+    -moz-box-shadow: 0px 15px 16.83px 0.17px rgba(0, 0, 0, 0.05);
+    -webkit-box-shadow: 0px 15px 16.83px 0.17px rgba(0, 0, 0, 0.05);
+    -o-box-shadow: 0px 15px 16.83px 0.17px rgba(0, 0, 0, 0.05);
+    -ms-box-shadow: 0px 15px 16.83px 0.17px rgba(0, 0, 0, 0.05);
+    border-radius: 20px;
+    -moz-border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -o-border-radius: 20px;
+    -ms-border-radius: 20px; }
+
 .admin_table {
-    margin-right: 75px;
-    padding-left: 34px;
-    padding-right: 34px; }
+    margin: auto; }
 
 .cards-list {
   z-index: 0;

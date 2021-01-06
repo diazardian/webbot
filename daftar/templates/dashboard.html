@@ -51,8 +51,19 @@ Informatics Bot
                         </div>
                     </a>
                 </div>
+                <div class="cards-list">
+                    <a class="card 1" href="{{ url_for('ruang_sidang') }}">
+                        <div>
+                            <h1 class="card_title">Ruang Sidang</h1>
+                        </div>
+                    </a>
+                    <a class="card 2" href="{{ url_for('ruang_kelas') }}">
+                        <div>
+                        <h1 class="card_title">Ruang Kelas</h1>
+                        </div>
+                    </a>
+                </div>
             </div>
-            {{ self.footer() }}
         </section> 
     </div>
     {% endif %}

@@ -40,7 +40,7 @@ Informatics Bot
                 <div class="admin_table">
                     <div class="card-header">
                         <h3>
-                            User Telegram
+                            Ruang Sidang
                         </h3>
                         <i class="fas fa-ellipsis-h"></i>
                     </div>
@@ -48,27 +48,27 @@ Informatics Bot
                         <table class="tabbedTable">
                             <thead>
                                 <tr>
-                                    <th>Telegram Id</th>
-                                    <th>Nama Lengkap</th>
-                                    <th>Prodi</th>
-                                    <th>Angkatan</th>
-                                    <th>Email</th>
-                                    <th>Role</th>
-                                    <th>PJ Kelas</th>
-                                    <th>Hapus</th>
+                                    <th>Ruang</th>
+                                    <th>Acara</th>
+                                    <th>Peserta</th>
+                                    <th>Tanggal Pesan</th>
+                                    <th>Pemesan</th>
+                                    <th>Status</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {% for data in user %}
-                                <tr id="id_user_{{data.id}}">
-                                    <td>{{ data.id }}</td>
+                                {% for data in ruang %}
+                                <tr>
+                                    <td>{{ data.namaruang }}</td>
+                                    <td>{{ data.acara }}</td>
+                                    <td>{{ data.peserta }}</td>
+                                    <td>{{ data.tanggal }} / {{ data.jam }}</td>
                                     <td>{{ data.nama }}</td>
-                                    <td>{{ data.prodi }}</td>
-                                    <td>{{ data.angkatan }}</td>
-                                    <td>{{ data.email }}</td>
-                                    <td>{{ data.role }}</td>
-                                    <td>{{ data.pj }}</td>
-                                    <td><button onclick="delete_row_user('{{data.id}}');">Hapus</button></td>
+                                    {% if data.status == 'history' %}
+                                        <td>Dihapus</td>
+                                    {% else %}
+                                        <td>aktif</td>
+                                    {% endif %}
                                 </tr>
                                 {% endfor %}
                             </tbody>
@@ -77,38 +77,7 @@ Informatics Bot
                 </div>
             </div>
         </div>
+        {{ self.footer() }}
     </section> 
 </div>
 {% endblock %}
-{% block script %}
-<script>
-    function delete_row_user(id) {
-  
-      var delete_user = {
-        id: id
-      };
-
-      var url = window.origin
-  
-      fetch(url+'/user/delete_user', {
-        method: 'POST',
-        credentials: 'include',
-        body: JSON.stringify(delete_user),
-        cache: 'no-cache',
-        headers: new Headers({
-          'content-type': 'application/json'
-        })
-      })
-    //   .then(function (response) {
-    //     if (response.status !== 200) {
-    //       console.log(response.status);
-    //       return;
-    //     }
-  
-    //     response.json().then(function (data) {
-    //       console.log(data)
-    //     })
-    //   })
-    }
-</script>
-{% endblock script %}

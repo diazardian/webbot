@@ -65,12 +65,34 @@ def user_all():
     """
     return graph.run(query)
 
-def log():
+def log_query():
     query = """
-    MATCH (user:UserTele)-[:LOGIING]-(log:Log)
-    RETURN user.userid as id, user.namalengkap as nama, log.query as query, log.timestamp as jam
+    MATCH (n:Log)
+    RETURN n.userid as userid , n.nama as nama, n.query as query, n.timestamp as jam
+    ORDER BY jam DESC
     """
     return graph.run(query)
+
+def ruangsidang():
+    query = """
+    MATCH (a:RuangSidang)-[r:BOOKING_AT]->(b:HistoryRuangSidang)<-[:DELETED_BY]-(u:UserTele)
+    MATCH (b:HistoryRuangSidang)<-[:BOOKED_BY]-(us:UserTele)
+    RETURN b.jam as jam, a.nama as namaruang, b.acara as acara, b.peserta as peserta, b.tanggal as tanggal, us.namalengkap as nama, b.updateat as timestamp, u.namalengkap as naleng, r.status as status
+    """
+    return graph.run(query)
+
+def kelaspengganti():
+    query = """
+    MATCH (kelas:Kelas)<-[:PUNYA_KELAS]-(u:UserTele)<-[:BOOKED_BY]-(brk:BookRuangKelas)
+    MATCH (kp:KelasPengganti)-[:BOOK_CLASS]-(brk)-[:CLASS_AT]-(ruang:Ruang)
+    RETURN kelas.nama as kelas, kp.nama as matkul, ruang.nama as ruang, brk.hari as hari, brk.jam as jam, brk.status as status
+    ORDER BY brk.timestamp
+    """
+    return graph.run(query)
+
+def deleteuser(id):
+    query = Node('UserTele', id=(id))
+    return graph.delete(query)
 
 def localtime():
     today_ori = tgl.today()
@@ -78,5 +100,5 @@ def localtime():
     hariini = tr.translate(hariini, dest='id', src='en')
     today = today_ori.strftime('%d %B %Y')
     today = tr.translate(today, dest='id', src='en')
-    local = hariini.text + ',' + today.text
+    local = hariini.text + ', ' + today.text
     return local

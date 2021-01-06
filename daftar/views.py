@@ -1,5 +1,5 @@
 from .models import *
-from flask import Flask, request, session, redirect, url_for, render_template, flash
+from flask import Flask, request, session, redirect, url_for, render_template, flash, jsonify
 
 import requests
 import re
@@ -7,6 +7,12 @@ import re
 regex = "(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)"
 
 app = Flask(__name__)
+
+
+# @app.errorhandler(Exception)
+# def server_error(err):
+#     app.logger.exception(err)
+#     return render_template('error.html'), 500
 
 @app.route('/')
 def showIndex():
@@ -25,9 +31,21 @@ def user():
 
 @app.route('/log')
 def loging():
-    data = log()
+    log = log_query()
     local = localtime()
-    return render_template('log.html', log=data, local=local)
+    return render_template('log.html', log=log, local=local)
+
+@app.route('/ruangsidang')
+def ruang_sidang():
+    ruang = ruangsidang()
+    local = localtime()
+    return render_template('ruangsidang.html', ruang=ruang, local=local)
+
+@app.route('/ruangkelas')
+def ruang_kelas():
+    ruang = kelaspengganti()
+    local = localtime()
+    return render_template('ruangkelas.html', ruang=ruang, local=local)
 
 @app.route('/admin', methods=['GET', 'POST'])
 def login():
@@ -99,3 +117,17 @@ def logout():
     base_url = f'https://api.telegram.org/bot{token}/sendMessage?chat_id={id}&text={text}'
     requests.get(base_url)
     return redirect(url_for('showIndex'))
+
+@app.route('/user/delete_user', methods=['GET','POST'])
+def delete_user():
+    if request.method == 'POST':
+        req = request.get_json()
+        req = req.get('id')
+        id = int(req)
+        if deleteuser(id):
+            flash('Berhasil dihapus')
+        else:
+            flash('Gagal')
+            return redirect(url_for('user'))
+        
+    return render_template('dashboard.html')
